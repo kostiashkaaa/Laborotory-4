@@ -38,8 +38,6 @@ HEADERS += \
     Call.h \
     DataManager.h
 
-# НЕ НУЖНЫ .ui файлы - UI создается в коде!
-
 MOC_DIR = build/moc
 OBJECTS_DIR = build/obj
 RCC_DIR = build/rcc
