@@ -1,6 +1,3 @@
-// mainwindow.cpp
-// Реализация главного окна приложения АТС
-
 #include "mainwindow.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -11,7 +8,7 @@
 #include <QFileDialog>
 #include <QHeaderView>
 #include <QGroupBox>
-#include <QToolBar> // <--- Важно для работы панели
+#include <QToolBar>
 #include "addtariffdialog.h"
 #include "addclientdialog.h"
 #include "addvipclientdialog.h"
@@ -23,21 +20,19 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("Система управления АТС");
     setMinimumSize(1000, 700);
 
-    // Создание центрального виджета
     QWidget *centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
 
     QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
 
-    // 1. Настройка меню и панели инструментов
     setupMenuBar();
-    setupToolBar(); // <--- Вызов настройки панели кнопок
+    setupToolBar();
 
-    // 2. Создание панели вкладок
+
     QTabWidget *tabWidget = new QTabWidget(this);
     mainLayout->addWidget(tabWidget);
 
-    // Создание вкладок
+
     QWidget *tariffsTab = new QWidget();
     QWidget *clientsTab = new QWidget();
     QWidget *vipClientsTab = new QWidget();
@@ -48,18 +43,18 @@ MainWindow::MainWindow(QWidget *parent)
     tabWidget->addTab(vipClientsTab, "VIP-клиенты");
     tabWidget->addTab(callsTab, "Звонки");
 
-    // Настройка содержимого вкладок
+
     setupTariffsTab();
     setupClientsTab();
     setupVIPClientsTab();
     setupCallsTab();
 
-    // Метка статистики
+
     statsLabel = new QLabel(this);
     statsLabel->setStyleSheet("QLabel { padding: 10px; background-color: #f0f0f0; border-radius: 5px; font-weight: bold; }");
     mainLayout->addWidget(statsLabel);
 
-    // Инициализация тестовыми данными
+
     dataManager->initializeTestData();
     updateTariffsTable();
     updateClientsTable();
@@ -67,9 +62,6 @@ MainWindow::MainWindow(QWidget *parent)
     updateCallsTable();
     updateStatistics();
 
-    // === Layouts для вкладок ===
-
-    // --- Вкладка Тарифы ---
     QVBoxLayout *tariffsLayout = new QVBoxLayout(tariffsTab);
     tariffsLayout->addWidget(tariffsTable);
     QHBoxLayout *tariffsButtons = new QHBoxLayout();
@@ -88,7 +80,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(deleteTariffBtn, &QPushButton::clicked, this, &MainWindow::onDeleteTariff);
     connect(sortTariffsBtn, &QPushButton::clicked, this, &MainWindow::onSortTariffs);
 
-    // --- Вкладка Клиенты ---
     QVBoxLayout *clientsLayout = new QVBoxLayout(clientsTab);
     clientsLayout->addWidget(clientsTable);
     QHBoxLayout *clientsButtons = new QHBoxLayout();
@@ -107,7 +98,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(deleteClientBtn, &QPushButton::clicked, this, &MainWindow::onDeleteClient);
     connect(sortClientsBtn, &QPushButton::clicked, this, &MainWindow::onSortClients);
 
-    // --- Вкладка VIP-клиенты ---
     QVBoxLayout *vipClientsLayout = new QVBoxLayout(vipClientsTab);
     vipClientsLayout->addWidget(vipClientsTable);
     QHBoxLayout *vipClientsButtons = new QHBoxLayout();
@@ -126,7 +116,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(deleteVIPClientBtn, &QPushButton::clicked, this, &MainWindow::onDeleteVIPClient);
     connect(sortVIPClientsBtn, &QPushButton::clicked, this, &MainWindow::onSortVIPClients);
 
-    // --- Вкладка Звонки ---
     QVBoxLayout *callsLayout = new QVBoxLayout(callsTab);
     callsLayout->addWidget(callsTable);
     QHBoxLayout *callsButtons = new QHBoxLayout();
@@ -150,26 +139,22 @@ MainWindow::~MainWindow() {
     delete dataManager;
 }
 
-// ============ Инициализация UI ============
 
 void MainWindow::setupToolBar() {
     QToolBar *toolbar = addToolBar("Main Toolbar");
-    toolbar->setMovable(false); // Зафиксировать панель
+    toolbar->setMovable(false);
     toolbar->setIconSize(QSize(24, 24));
 
-    // Кнопка Сохранить
     QAction *saveAction = toolbar->addAction("💾 Сохранить базу");
     saveAction->setToolTip("Сохранить данные в CSV файл");
     connect(saveAction, &QAction::triggered, this, &MainWindow::onSaveData);
 
-    // Кнопка Загрузить
     QAction *loadAction = toolbar->addAction("📂 Загрузить базу");
     loadAction->setToolTip("Загрузить данные из CSV файла");
     connect(loadAction, &QAction::triggered, this, &MainWindow::onLoadData);
 
-    toolbar->addSeparator(); // Разделитель
+    toolbar->addSeparator();
 
-    // Кнопка Очистить
     QAction *clearAction = toolbar->addAction("🗑️ Очистить всё");
     clearAction->setToolTip("Удалить все данные из памяти");
     connect(clearAction, &QAction::triggered, this, &MainWindow::onClearAllData);
@@ -236,7 +221,6 @@ void MainWindow::setupMenuBar() {
     connect(aboutAction, &QAction::triggered, this, &MainWindow::onAbout);
 }
 
-// ============ Обновление таблиц ============
 
 void MainWindow::updateTariffsTable() {
     tariffsTable->setRowCount(0);
@@ -302,7 +286,6 @@ void MainWindow::updateStatistics() {
     statsLabel->setText(stats);
 }
 
-// ============ Слоты ============
 
 void MainWindow::onAddTariff() {
     AddTariffDialog dialog(this);
@@ -439,7 +422,6 @@ void MainWindow::onAddCall() {
     if (dialog.exec() == QDialog::Accepted) {
         Call newCall = dialog.getCall();
 
-        // ВАЖНО: Проверяем, успешно ли добавлен звонок (защита от несуществующих клиентов)
         if (dataManager->addCall(newCall)) {
             updateCallsTable();
             updateStatistics();
