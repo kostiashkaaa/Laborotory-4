@@ -1,6 +1,3 @@
-// addcalldialog.h
-// Диалоговое окно для добавления звонка
-
 #ifndef ADDCALLDIALOG_H
 #define ADDCALLDIALOG_H
 
@@ -40,4 +37,4 @@ private:
     void updateCost();
 };
 
-#endif // ADDCALLDIALOG_H
+#endif
