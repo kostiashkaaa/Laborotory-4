@@ -1,5 +1,3 @@
-// addtariffdialog.h
-// Диалоговое окно для добавления/редактирования тарифа
 
 #ifndef ADDTARIFFDIALOG_H
 #define ADDTARIFFDIALOG_H
@@ -13,10 +11,8 @@ class AddTariffDialog : public QDialog {
     Q_OBJECT
     
 public:
-    // Конструктор для добавления нового тарифа
     explicit AddTariffDialog(QWidget *parent = nullptr);
     
-    // Конструктор для редактирования существующего тарифа (перегрузка)
     AddTariffDialog(QWidget *parent, const Tariff& tariff);
     
     ~AddTariffDialog();
@@ -38,4 +34,4 @@ private:
     void validateAndAccept();
 };
 
-#endif // ADDTARIFFDIALOG_H
+#endif
