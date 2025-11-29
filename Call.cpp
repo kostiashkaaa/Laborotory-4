@@ -8,7 +8,6 @@ Call::Call(const std::string& callerName, const std::string& destination,
     : callerName(callerName), destination(destination),
     duration(duration), cost(cost) {}
 
-// ДОБАВЬТЕ:
 std::string Call::getCallerName() const {
     return callerName;
 }
