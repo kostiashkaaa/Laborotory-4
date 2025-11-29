@@ -10,16 +10,13 @@ private:
     double connectionFee;
 
 public:
-    // Конструкторы
     Tariff();
     Tariff(const std::string& city, double pricePerMinute, double connectionFee);
 
-    // Геттеры
     std::string getCity() const;
     double getPricePerMinute() const;
     double getConnectionFee() const;
 
-    // Сеттеры
     void setCity(const std::string& city);
     void setPricePerMinute(double price);
     void setConnectionFee(double fee);
