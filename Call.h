@@ -15,7 +15,6 @@ public:
     Call(const std::string& callerName, const std::string& destination,
          int duration, double cost);
 
-    // ДОБАВЬТЕ ЭТИ МЕТОДЫ:
     std::string getCallerName() const;
     std::string getDestination() const;
     int getDuration() const;
