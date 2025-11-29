@@ -34,7 +34,6 @@ public:
     void updateClient(int index, const Client& client);
     const std::vector<Client>& getClients() const;
 
-    // НОВЫЙ МЕТОД: Проверка существования клиента
     bool clientExists(const std::string& name) const;
 
     // Управление VIP-клиентами
@@ -44,7 +43,6 @@ public:
     const std::vector<VIPClient>& getVIPClients() const;
 
     // Управление звонками
-    // ИЗМЕНЕНО: возвращает bool (успех/неудача)
     bool addCall(const Call& call);
     void removeCall(int index);
     const std::vector<Call>& getCalls() const;
@@ -71,4 +69,4 @@ public:
     void initializeTestData();
 };
 
-#endif // DATAMANAGER_H
+#endif
