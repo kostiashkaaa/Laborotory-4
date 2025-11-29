@@ -6,7 +6,6 @@ Tariff::Tariff() : city(""), pricePerMinute(0.0), connectionFee(0.0) {}
 Tariff::Tariff(const std::string& city, double pricePerMinute, double connectionFee)
     : city(city), pricePerMinute(pricePerMinute), connectionFee(connectionFee) {}
 
-// ДОБАВЬТЕ ЭТИ МЕТОДЫ:
 std::string Tariff::getCity() const {
     return city;
 }
