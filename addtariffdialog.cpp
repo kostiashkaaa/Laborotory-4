@@ -1,4 +1,3 @@
-// addtariffdialog.cpp
 #include "addtariffdialog.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
